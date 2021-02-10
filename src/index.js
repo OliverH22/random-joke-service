@@ -48,7 +48,7 @@ const errorPage = `
 </html>`;
 
 const getRandomJokeJSON = (max=1) => {
-    Math.floor(Math.random() * 11); 
+    const number = Math.floor(Math.random() * 11); 
     const responseObj = {
       timestamp: new Date(),
       number: number
@@ -65,7 +65,7 @@ const onRequest = (request, response) => {
     console.log("pathname=", pathname);
 
 
-    if (pathname == "/") {
+    if (pathname === "/") {
         response.writeHead(200, { 'Content-Type': 'text/html' });
         response.write(indexPage);
         response.end();
