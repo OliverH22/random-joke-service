@@ -13,7 +13,7 @@ const http = require('http');
 const url = require('url');
 const query = require('querystring');
 const jsonHandler2 = require('./htmlResponses.js');
-const jsonHandler = require('./jsonResponses.js');
+const jsonHandler = require('./responses.js');
 
 // 3 - locally this will be 3000, on Heroku it will be assigned
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
@@ -31,8 +31,8 @@ const onRequest = (request, response) => {
 
   const params = query.parse(parsedUrl.query);
 
-  // let acceptedTypes = request.headers.accept && request.headers.accept.split(',');
-  // acceptedTypes = acceptedTypes || [];
+  let acceptedTypes = request.headers.accept && request.headers.accept.split(',');
+  acceptedTypes = acceptedTypes || [];
 
   // if(pathname === '/random-joke'){
   //   jsonHandler.getRandomJokeResponse(request, response);
@@ -40,9 +40,9 @@ const onRequest = (request, response) => {
   //   jsonHandler2.getErrorResponse(request,response)
   // }
   if (urlStruct[pathname]) {
-    urlStruct[pathname](request, response, params);
+    urlStruct[pathname](request, response, params, acceptedTypes);
   } else {
-    urlStruct.notFound(request, response, params);
+    urlStruct.notFound(request, response, params, acceptedTypes);
   }
 };
 
