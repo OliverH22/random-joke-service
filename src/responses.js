@@ -14,10 +14,12 @@ const randomJokeJSON = (limit = 1 && jokes.length) => {
     timestamp: new Date(),
     joke,
   };
+  const getBinarySize = string => Buffer.byteLength(string, 'utf8');
+
   return JSON.stringify(responseObj);
 };
 
-const getRandomJokeResponse = (request, response, params, acceptedTypes) => {
+const getRandomJokeResponse = (request, response, params, acceptedTypes, httpMethod) => {
   response.writeHead(200, { 'Content-Type': 'application/json' });
   response.write(randomJokeJSON(params.limit));
   response.end();
